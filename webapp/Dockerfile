@@ -17,4 +17,4 @@ ENV PATH="/opt/venv/bin:$PATH"
 WORKDIR /app
 COPY . .
 EXPOSE 8080
-CMD ["gunicorn"  , "--bind", "0.0.0.0:8080", "main:app.server"]
+CMD ["gunicorn"  , "--bind", "0.0.0.0:8080", "main:server"]
