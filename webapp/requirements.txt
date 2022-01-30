@@ -1,0 +1,8 @@
+dash
+dash-bootstrap-components
+tensorflow
+gunicorn
+gevent
+pandas
+
+
