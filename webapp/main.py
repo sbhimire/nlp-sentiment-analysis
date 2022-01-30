@@ -3,6 +3,45 @@ from dash.dependencies import Input, Output, State
 from dash import html
 from dash import dcc
 import dash_bootstrap_components as dbc
+import plotly.express as px
+
+import tensorflow as tf 
+import numpy as np
+from tensorflow.keras.preprocessing import sequence
+import re
+
+#load model
+model = tf.keras.models.load_model('model')
+
+# Map for readable classnames
+class_names = ["Negative", "Positive"]
+
+# Get the word index from the dataset
+word_index = tf.keras.datasets.imdb.get_word_index()
+
+# Ensure that "special" words are mapped into human readable terms 
+word_index = {k:(v+3) for k,v in word_index.items()}
+word_index["<PAD>"] = 0
+word_index["<START>"] = 1
+word_index["<UNKNOWN>"] = 2
+word_index["<UNUSED>"] = 3
+
+# The length of reviews
+review_length = 500
+
+def predict(review):
+  review = re.sub(r'[^A-Za-z0-9 ]+', ' ', review.strip())
+
+  # Encode review (replace word with integers)
+  review_encoded = np.array([word_index[word] if (word.isalnum() and word in word_index and word_index[word]<10000) else 2 for word in review.split(" ")])
+
+  # Ensure review_encoded is 500 words long by padding it using pad_sequences
+  review_padded = sequence.pad_sequences(review_encoded[None, :], maxlen = review_length)
+
+  # Run your review_padded against the trained model
+  raw_prediction = model.predict(review_padded)[0][0]
+
+  return raw_prediction
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], title="Movie Review Sentiment")
 
@@ -60,6 +99,8 @@ jumbotron = html.Div(
     className="p-3 bg-light rounded-3",
 )
 
+
+
 row =  dbc.Row(
             [
                 dbc.Col(html.Div(), md=3),
@@ -77,7 +118,23 @@ app.layout = html.Div([logo, row])
 )
 def update_output(n_clicks, value):
     if n_clicks > 0:
-        return 'You have entered: \n{}'.format(value)
+      if value:
+        raw_prediction = predict(value)*2-1
+
+        fig = px.bar(x=[raw_prediction], y=[''], orientation='h', height=200, title="Review Sentiment (-1: very bad, 1: very good)")
+        fig.update_yaxes(title ='', visible=True, showticklabels=False)
+        fig.update_xaxes(title ='', visible=True, showticklabels=True, range=[-1, 1], showgrid=True, showline=True, 
+                          ticks='outside', linewidth=0.5, linecolor='black')
+        fig.update_traces(width=0.75)
+        fig.update_layout({
+          'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+          })
+        chart = dcc.Graph(figure=fig, className="mt-5",)
+
+        #return '\n Raw Prediction: \n{}'.format(raw_prediction)
+        return chart
+      else:
+        return "Please provide a review."
 
 if __name__ == '__main__':
     app.run_server(debug=True)
