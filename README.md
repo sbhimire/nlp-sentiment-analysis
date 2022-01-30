@@ -1,6 +1,6 @@
 ## NLP - Movie review sentiment analysis
 
-This Jupyter Notebook contains Python code for building a LSTM Recurrent Neural Network that gives 87-88% accuracy on the IMDB Movie Review Sentiment Analysis Dataset. The repo also contains the code to deploy the model online in the webapp folder.
+The colab notebook contains the code for building a LSTM Recurrent Neural Network that gives 87-88% accuracy on the IMDB Movie Review Sentiment Analysis Dataset. The repo also contains the code to deploy the model online.
 
 ## App demo
 
