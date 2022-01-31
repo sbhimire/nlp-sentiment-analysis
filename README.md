@@ -4,7 +4,7 @@ The colab notebook contains the code for building a simple LSTM Recurrent Neural
 
 ## App demo
 
-The movie review sentiment analysis app takes the user input movie review and provides a sentiment score between [-1,1] where -1 is very good and 1 is very good.
+The app takes the user written movie review and provides a sentiment score between [-1,1] where -1 is very good and 1 is very good.
 
 <img src=".github\readme\demo.gif">
 
