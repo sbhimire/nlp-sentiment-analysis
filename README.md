@@ -2,7 +2,7 @@
 
 The colab notebook contains the code for building a simple LSTM Recurrent Neural Network model that gives 87-88% accuracy on the IMDB Movie Review Sentiment Analysis Dataset. The repo also contains the code to deploy the movie review sentiment analysis app.
 
-You can try the app at https://webapp-fa67s6dqfq-uc.a.run.app//
+You can try the app at https://webapp-fa67s6dqfq-uc.a.run.app/
 
 ## App demo
 
