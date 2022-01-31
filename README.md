@@ -1,8 +1,12 @@
 ## NLP - Movie review sentiment analysis
 
-The colab notebook contains the code for building a LSTM Recurrent Neural Network that gives 87-88% accuracy on the IMDB Movie Review Sentiment Analysis Dataset. The repo also contains the code to deploy the model online.
+The colab notebook contains the code for building a simple LSTM Recurrent Neural Network model that gives 87-88% accuracy on the IMDB Movie Review Sentiment Analysis Dataset. The repo also contains the code to deploy the movie review sentiment analysis app.
 
 ## App demo
+
+The movie review sentiment analysis app takes the user input movie review and provides a sentiment score between [-1,1] where -1 is very good and 1 is very good.
+
+<img src=".github\readme\demo.gif">
 
 Follow the instructions below to run the app locally with Docker.
 
